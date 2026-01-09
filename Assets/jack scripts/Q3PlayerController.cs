@@ -48,6 +48,9 @@ namespace Q3Movement
         private Vector3 m_MoveDirectionNorm = Vector3.zero;
         private Vector3 m_PlayerVelocity = Vector3.zero;
 
+        [Header("Camera")]
+        public Camera cam;
+
         // Used to queue the next jump just before hitting the ground.
         private bool m_JumpQueued = false;
 
@@ -73,7 +76,7 @@ namespace Q3Movement
         private void Update()
         {
             m_MoveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-            m_MouseLook.UpdateCursorLock();    
+            m_MouseLook.UpdateCursorLock();
             QueueJump();
 
             // Set movement state.
@@ -91,6 +94,9 @@ namespace Q3Movement
 
             // Move the character.
             m_Character.Move(m_PlayerVelocity * Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            { Attack(); }
         }
 
         // Queues the next jump.
@@ -231,7 +237,7 @@ namespace Q3Movement
         private void ApplyFriction(float t)
         {
             // Equivalent to VectorCopy();
-            Vector3 vec = m_PlayerVelocity; 
+            Vector3 vec = m_PlayerVelocity;
             vec.y = 0;
             float speed = vec.magnitude;
             float drop = 0;
@@ -279,5 +285,57 @@ namespace Q3Movement
             m_PlayerVelocity.x += accelspeed * targetDir.x;
             m_PlayerVelocity.z += accelspeed * targetDir.z;
         }
+
+        [Header("Attacking")]
+        public float attackDistance = 3f;
+        public float attackDelay = 0.4f;
+        public float attackSpeed = 1f;
+        public int attackDamage = 1;
+        public LayerMask attackLayer;
+
+        public GameObject hitEffect;
+        public AudioClip swordSwing;
+        public AudioClip hitSound;
+
+        bool attacking = false;
+        bool readyToAttack = true;
+        int attackCount;
+
+        public void Attack()
+        {
+            if (!readyToAttack || attacking) return;
+
+            readyToAttack = false;
+            attacking = true;
+
+            Invoke(nameof(ResetAttack), attackSpeed);
+            Invoke(nameof(AttackRaycast), attackDelay);
+
+            void ResetAttack()
+            {
+                attacking = false;
+                readyToAttack = true;
+            }
+
+            void AttackRaycast()
+            {
+                if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
+                {
+                    HitTarget(hit.point);
+
+                    if (hit.transform.TryGetComponent<Actor>(out Actor T))
+                    { T.TakeDamage(attackDamage); }
+                }
+            }
+
+            void HitTarget(Vector3 pos)
+            {
+
+
+                GameObject GO = Instantiate(hitEffect, pos, Quaternion.identity);
+                Destroy(GO, 20);
+            }
+        }
+
     }
 }
