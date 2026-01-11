@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Whether or not the player is grounded
     /// </summary>
-    bool isGripGate = true;
+    bool isGrounded = true;
     public GameObject groundCheck;
     public float checkRadius;
     public LayerMask groundLayer;
@@ -42,13 +42,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        isGripGate = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer);
-
-
+        // Checks if the player is grounded, and assigns the value to isGrounded
+        isGrounded = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer);
 
 
-        if (isGripGate)
+
+        // Handles movement when grounded and not sliding
+        if (isGrounded)
         {
             moveX = Input.GetAxis("Horizontal") * moveSpeed;
             moveZ = Input.GetAxis("Vertical") * moveSpeed;
@@ -56,7 +56,9 @@ public class PlayerMovement : MonoBehaviour
             
         }
 
-        if (!isGripGate)
+
+        // Handles movement when airborne or sliding
+        if (!isGrounded)
         {
             accelerateX = Input.GetAxisRaw("Horizontal") * airControl;
             accelerateZ = Input.GetAxisRaw("Vertical") * airControl;
@@ -67,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) && isGripGate)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y); ;
         }
