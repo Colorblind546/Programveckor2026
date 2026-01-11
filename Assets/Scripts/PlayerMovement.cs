@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Miscellaneous 
     public float jumpHeight;
+    private float totalSpeed;
 
 
     // Collision checks and the like
@@ -45,13 +46,22 @@ public class PlayerMovement : MonoBehaviour
         // Checks if the player is grounded, and assigns the value to isGrounded
         isGrounded = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer);
 
-
+        
 
         // Handles movement when grounded and not sliding
         if (isGrounded)
         {
-            moveX = Input.GetAxis("Horizontal") * moveSpeed;
-            moveZ = Input.GetAxis("Vertical") * moveSpeed;
+            // Makes sure that the player doesn't move faster on diagonals
+            float axisMagnitude = Mathf.Sqrt(Input.GetAxis("Horizontal") * Input.GetAxis("Horizontal") + Input.GetAxis("Vertical") * Input.GetAxis("Vertical"));
+            if (axisMagnitude <= 1)
+            {
+                axisMagnitude = 1;
+            }
+
+
+            moveX = Input.GetAxis("Horizontal") / axisMagnitude * moveSpeed;
+            moveZ = Input.GetAxis("Vertical") / axisMagnitude * moveSpeed;
+
             velocity = (transform.right * moveX + transform.forward * moveZ) + Vector3.up * -3;
             
         }
@@ -60,13 +70,20 @@ public class PlayerMovement : MonoBehaviour
         // Handles movement when airborne or sliding
         if (!isGrounded)
         {
-            accelerateX = Input.GetAxisRaw("Horizontal") * airControl;
-            accelerateZ = Input.GetAxisRaw("Vertical") * airControl;
+            // Makes sure that the player doesn't accelerate faster on diagonals
+            float axisMagnitude = Mathf.Sqrt(Input.GetAxisRaw("Horizontal") * Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Vertical") * Input.GetAxisRaw("Vertical"));
+            if (axisMagnitude <= 1)
+            {
+                axisMagnitude = 1;
+            }
+
+
+            accelerateX = Input.GetAxisRaw("Horizontal") / axisMagnitude * airControl;
+            accelerateZ = Input.GetAxisRaw("Vertical") / axisMagnitude * airControl;
 
             velocity += (transform.right * accelerateX + transform.forward * accelerateZ) * Time.deltaTime;
             velocity += new Vector3(0, Physics.gravity.y, 0) * Time.deltaTime;
 
-            
         }
         
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -75,9 +92,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+
+        totalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
+
         controller.Move(velocity * Time.deltaTime);
 
 
+    }
+
+    public float GetTotalSpeed()
+    {
+        return totalSpeed;
     }
 
 }
