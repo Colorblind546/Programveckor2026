@@ -52,10 +52,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  airControl: 0
-  jumpHeight: 0
+  airControl: 5
+  highSpeedAirControl: 5
+  lowSpeedAirControl: 15
+  airControlSpeedThreshold: 25
+  jumpHeight: 5
   groundCheck: {fileID: 8615145408023333898}
-  checkRadius: 0.1
+  checkRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -170,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d63fb512c3160a418f36a0e9ce31e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSliding: 0
 --- !u!1 &8576129857008652170
 GameObject:
   m_ObjectHideFlags: 0

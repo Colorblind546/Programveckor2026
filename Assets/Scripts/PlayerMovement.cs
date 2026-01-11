@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
@@ -7,18 +8,22 @@ public class PlayerMovement : MonoBehaviour
 {
 
     CharacterController controller;
-
+    // General movement stuff
+    Vector3 velocity;
+    AdvancedPlayerMovement advancedPlayerMovement;
     // Grounded movement stuff
-    float moveX;
-    float moveZ;
     public float moveSpeed;
     
 
-    // Airborne and sliding movement
-    float accelerateX;
-    float accelerateZ;
-    public float airControl;
-    Vector3 velocity;
+
+    // Airborne movement
+    bool groundedLastUpdate = true;
+        // Air control stuff
+        public float airControl;
+        public float highSpeedAirControl;
+        public float lowSpeedAirControl;
+        public float airControlSpeedThreshold;
+
 
     // Miscellaneous 
     public float jumpHeight;
@@ -38,18 +43,28 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        advancedPlayerMovement = GetComponent<AdvancedPlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Checks if the player is grounded, and assigns the value to isGrounded
-        isGrounded = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer);
-
+        isGrounded = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer) && velocity.y <= 0;
+        
         
 
+        if (totalSpeed >  airControlSpeedThreshold)
+        {
+            airControl = highSpeedAirControl;
+        }
+        else if (totalSpeed < airControlSpeedThreshold)
+        {
+            airControl = lowSpeedAirControl;
+        }
+
         // Handles movement when grounded and not sliding
-        if (isGrounded)
+        if (isGrounded && !advancedPlayerMovement.isSliding)
         {
             // Makes sure that the player doesn't move faster on diagonals
             float axisMagnitude = Mathf.Sqrt(Input.GetAxis("Horizontal") * Input.GetAxis("Horizontal") + Input.GetAxis("Vertical") * Input.GetAxis("Vertical"));
@@ -59,15 +74,25 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            moveX = Input.GetAxis("Horizontal") / axisMagnitude * moveSpeed;
-            moveZ = Input.GetAxis("Vertical") / axisMagnitude * moveSpeed;
+            float moveX = Input.GetAxis("Horizontal") / axisMagnitude * moveSpeed;
+            float moveZ = Input.GetAxis("Vertical") / axisMagnitude * moveSpeed;
 
-            velocity = (transform.right * moveX + transform.forward * moveZ) + Vector3.up * -3;
-            
+            velocity = (transform.right * moveX + transform.forward * moveZ) + Vector3.up * -7.5f;
+
+        }
+
+        // Handles movement when sliding
+        if (advancedPlayerMovement.isSliding)
+        {
+            if (groundedLastUpdate && !isGrounded && velocity.y < 0)
+            {
+                velocity.y = 0;
+            }
+
         }
 
 
-        // Handles movement when airborne or sliding
+        // Handles movement when airborne
         if (!isGrounded)
         {
             // Makes sure that the player doesn't accelerate faster on diagonals
@@ -77,15 +102,21 @@ public class PlayerMovement : MonoBehaviour
                 axisMagnitude = 1;
             }
 
+            if (groundedLastUpdate && !isGrounded && velocity.y < 0)
+            {
+                velocity.y = 0;
+            }
 
-            accelerateX = Input.GetAxisRaw("Horizontal") / axisMagnitude * airControl;
-            accelerateZ = Input.GetAxisRaw("Vertical") / axisMagnitude * airControl;
+
+            float accelerateX = Input.GetAxisRaw("Horizontal") / axisMagnitude * airControl;
+            float accelerateZ = Input.GetAxisRaw("Vertical") / axisMagnitude * airControl;
 
             velocity += (transform.right * accelerateX + transform.forward * accelerateZ) * Time.deltaTime;
             velocity += new Vector3(0, Physics.gravity.y, 0) * Time.deltaTime;
 
         }
         
+        // Handles jumping, and stops upward velocity respectively
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y); ;
@@ -97,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-
+        groundedLastUpdate = isGrounded;
     }
 
     public float GetTotalSpeed()
