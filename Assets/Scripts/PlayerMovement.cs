@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     CharacterController controller;
     // General movement stuff
-    Vector3 velocity;
+    public Vector3 velocity;
     AdvancedPlayerMovement advancedPlayerMovement;
     // Grounded movement stuff
     public float moveSpeed;
@@ -28,13 +28,12 @@ public class PlayerMovement : MonoBehaviour
     // Miscellaneous 
     public float jumpHeight;
     private float totalSpeed;
+    public bool freezePlayer = false;
 
 
     // Collision checks and the like
-    /// <summary>
-    /// Whether or not the player is grounded
-    /// </summary>
-    bool isGrounded = true;
+   
+    public bool isGrounded = true;
     public GameObject groundCheck;
     public float checkRadius;
     public LayerMask groundLayer;
@@ -50,10 +49,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Checks if the player is grounded, and assigns the value to isGrounded
-        isGrounded = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer) && velocity.y <= 0;
+        isGrounded = Physics.CheckSphere(groundCheck.transform.position, checkRadius, groundLayer) && velocity.y <= 1;
         
-        
-
+        // Air control speed modifier
         if (totalSpeed >  airControlSpeedThreshold)
         {
             airControl = highSpeedAirControl;
@@ -63,8 +61,22 @@ public class PlayerMovement : MonoBehaviour
             airControl = lowSpeedAirControl;
         }
 
+
+
+
+
+        // Freezes the player in place
+        if (freezePlayer)
+        {
+            velocity = Vector3.zero;
+        }
+
+
+
+
+
         // Handles movement when grounded and not sliding
-        if (isGrounded && !advancedPlayerMovement.isSliding)
+        else if (isGrounded && !advancedPlayerMovement.isSliding)
         {
             // Makes sure that the player doesn't move faster on diagonals
             float axisMagnitude = Mathf.Sqrt(Input.GetAxis("Horizontal") * Input.GetAxis("Horizontal") + Input.GetAxis("Vertical") * Input.GetAxis("Vertical"));
@@ -73,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
                 axisMagnitude = 1;
             }
 
-
             float moveX = Input.GetAxis("Horizontal") / axisMagnitude * moveSpeed;
             float moveZ = Input.GetAxis("Vertical") / axisMagnitude * moveSpeed;
 
@@ -81,19 +92,24 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+
+
+
+
         // Handles movement when sliding
-        if (advancedPlayerMovement.isSliding)
+        else if (advancedPlayerMovement.isSliding && isGrounded)
         {
-            if (groundedLastUpdate && !isGrounded && velocity.y < 0)
-            {
-                velocity.y = 0;
-            }
+
+            velocity.y = -7.5f; // Keeps the player grounded
 
         }
 
 
+
+
+
         // Handles movement when airborne
-        if (!isGrounded)
+        else if (!isGrounded)
         {
             // Makes sure that the player doesn't accelerate faster on diagonals
             float axisMagnitude = Mathf.Sqrt(Input.GetAxisRaw("Horizontal") * Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Vertical") * Input.GetAxisRaw("Vertical"));
@@ -122,13 +138,11 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y); ;
         }
 
+        controller.Move(velocity * Time.deltaTime); // Applies movement and moves the player
 
 
-        totalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-
-        controller.Move(velocity * Time.deltaTime);
-
-        groundedLastUpdate = isGrounded;
+        totalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude; // Gets the total velocity of the player as a float
+        groundedLastUpdate = isGrounded; // Sets grounded on last frame to current grounded state
     }
 
     public float GetTotalSpeed()
