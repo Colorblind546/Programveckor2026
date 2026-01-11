@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 102271563}
   - component: {fileID: 102271568}
   - component: {fileID: 102271562}
+  - component: {fileID: 102271569}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -299,6 +300,20 @@ MonoBehaviour:
   MoveSpeed: 1.3
   maxSpeed: 3
   walking: {fileID: 0}
+--- !u!114 &102271569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102271561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29a4b09e211b914687f2bf090a6ba23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 321911917}
+  renderTexture: {fileID: 8400000, guid: d0bcf6aea216aa144b3ae90626a94ed3, type: 2}
 --- !u!1 &306754583
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,9 +431,10 @@ GameObject:
   - component: {fileID: 321911917}
   - component: {fileID: 321911916}
   - component: {fileID: 321911915}
+  - component: {fileID: 321911919}
   m_Layer: 0
   m_Name: UI Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -541,6 +557,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &321911919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321911914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29a4b09e211b914687f2bf090a6ba23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 321911917}
+  renderTexture: {fileID: 8400000, guid: d0bcf6aea216aa144b3ae90626a94ed3, type: 2}
 --- !u!1 &466831326
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,8 +925,8 @@ Transform:
   m_GameObject: {fileID: 1741156322}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.45, y: 100.7, z: 1.789}
-  m_LocalScale: {x: 1, y: 0.36946, z: -0.0011774}
+  m_LocalPosition: {x: -0.155, y: 99.857, z: 1.789}
+  m_LocalScale: {x: 1.21665, y: 0.28759494, z: -0.0011774}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
