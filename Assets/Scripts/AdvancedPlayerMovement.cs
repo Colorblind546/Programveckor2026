@@ -62,8 +62,22 @@ public class AdvancedPlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
+        // Dashing
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (playerMovement.GetTotalSpeed() <= 50)
+            {
+                playerMovement.velocity = Camera.main.transform.forward * 25;
+            }
+            else
+            {
+                playerMovement.velocity = Camera.main.transform.forward * (playerMovement.GetTotalSpeed() / 2);
+            }
+        }
+
+
         // Wall hold and launch
-        if (Input.GetKey(KeyCode.LeftShift) && wallGrabCoroutine == null && playerMovement.GetTotalSpeed() >= minSpeedToWallGrab && Physics.CheckBox(wallGrabCheck.transform.position, wallGrabSize/2, Quaternion.identity, groundLayer) && wallGrabIsReady)
+        if (Input.GetKey(KeyCode.Space) && wallGrabCoroutine == null && playerMovement.GetTotalSpeed() >= minSpeedToWallGrab && Physics.CheckBox(wallGrabCheck.transform.position, wallGrabSize/2, Quaternion.identity, groundLayer) && wallGrabIsReady)
         {
             isHoldingWall = true;
             wallGrabCoroutine = StartCoroutine(WallGrab());
