@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb97191ca4508147a95f38a408e6a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 0, z: 0}
   moveSpeed: 15
   airControl: 5
   highSpeedAirControl: 5
@@ -81,6 +82,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  grabDuration: 2.5
   wallGrabCheck: {fileID: 9147232372365189355}
   wallGrabSize: {x: 1.3, y: 0.2, z: 1.3}
   isHoldingWall: 0
@@ -334,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6364d3d30bdf30e468a2735ab2f3f942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 1
+  sensitivity: 2
   playerBody: {fileID: 3084027020336589935}
 --- !u!1 &8615145408023333898
 GameObject:
