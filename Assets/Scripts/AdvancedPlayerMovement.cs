@@ -92,7 +92,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isHoldingWall) // Launches player out of wall grab
         {
             // Undo wall grab
-            UndoWallGrab(1.5f);
+            UndoWallGrab(0.5f);
 
             // Launch
             playerMovement.velocity = Camera.main.transform.forward * totalSpeedStore;
@@ -117,7 +117,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(grabDuration);
 
         // Undoes wall grab, letting it be performed again after a delay
-        UndoWallGrab(2);
+        UndoWallGrab(1f);
         totalSpeedStore = 0;
     }
 
