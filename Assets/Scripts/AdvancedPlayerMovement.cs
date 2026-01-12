@@ -10,7 +10,11 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public bool isSliding = false;
     public LayerMask groundLayer;
 
+    // Dash variables
 
+        // Dash cooldown variables
+        public float dashCooldown;
+        public bool dashIsReady = true;
 
     // Wall grab and launch variables
 
@@ -29,6 +33,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
         // Launch power
         float totalSpeedStore;
+        public float powerBonus;
 
 
 
@@ -63,16 +68,18 @@ public class AdvancedPlayerMovement : MonoBehaviour
         }
 
         // Dashing
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashIsReady)
         {
-            if (playerMovement.GetTotalSpeed() <= 50)
+            if (playerMovement.GetTotalSpeed() <= 60)
             {
-                playerMovement.velocity = Camera.main.transform.forward * 25;
+                playerMovement.velocity = Camera.main.transform.forward * 30;
             }
             else
             {
-                playerMovement.velocity = Camera.main.transform.forward * (playerMovement.GetTotalSpeed() / 2);
+                playerMovement.velocity = Camera.main.transform.forward * (playerMovement.GetTotalSpeed() / 1.5f);
             }
+            dashIsReady = false;
+            Invoke(nameof(DashRecharge), dashCooldown);
         }
 
 
@@ -95,7 +102,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
             UndoWallGrab(0.5f);
 
             // Launch
-            playerMovement.velocity = Camera.main.transform.forward * totalSpeedStore;
+            playerMovement.velocity = Camera.main.transform.forward * (totalSpeedStore + powerBonus);
             totalSpeedStore = 0;
 
         }
@@ -136,6 +143,12 @@ public class AdvancedPlayerMovement : MonoBehaviour
         playerMovement.freezePlayer = false;
         isHoldingWall = false;
         Invoke(nameof(WallGrabRecharge), rechargeTime);
+        StopCoroutine(wallGrabCoroutine);
         wallGrabCoroutine = null;
+    }
+
+    void DashRecharge()
+    {
+        dashIsReady = true;
     }
 }
