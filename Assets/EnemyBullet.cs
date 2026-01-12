@@ -10,6 +10,8 @@ public class EnemyBullet : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(BulletTimmer());
+
     }
     void Start()
     {
@@ -19,6 +21,11 @@ public class EnemyBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Hit " + collision.gameObject.name);
-       Destroy(gameObject);
+        Destroy(gameObject);
+    }
+    IEnumerator BulletTimmer()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
 }
