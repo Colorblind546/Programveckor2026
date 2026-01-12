@@ -9,13 +9,13 @@ public class AdvancedPlayerMovement : MonoBehaviour
     PlayerMovement playerMovement;
     public bool isSliding = false;
     public LayerMask groundLayer;
-
+    public Camera cam;
 
 
     // Wall grab and launch variables
 
-        // Modifiable parameters
-        public float grabDuration;
+    // Modifiable parameters
+    public float grabDuration;
 
         // Wall in range check
         public GameObject wallGrabCheck;
@@ -63,7 +63,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         }
 
         // Wall hold and launch
-        if (Input.GetKey(KeyCode.LeftShift) && wallGrabCoroutine == null && playerMovement.GetTotalSpeed() >= minSpeedToWallGrab && Physics.CheckBox(wallGrabCheck.transform.position, wallGrabSize/2, Quaternion.identity, groundLayer) && wallGrabIsReady)
+        if (Input.GetKey(KeyCode.LeftShift) && wallGrabCoroutine == null && playerMovement.GetTotalSpeed() >= minSpeedToWallGrab && Physics.CheckBox(wallGrabCheck.transform.position, wallGrabSize / 2, Quaternion.identity, groundLayer) && wallGrabIsReady)
         {
             isHoldingWall = true;
             wallGrabCoroutine = StartCoroutine(WallGrab());
@@ -86,25 +86,87 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
         }
 
+        //Attack Activation
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Attack();
+        }
+
+
+
+        IEnumerator WallGrab()
+        {
+            // Set up wall grab, preventing duplicate coroutines and such
+            wallGrabIsReady = false;
+            playerMovement.freezePlayer = true;
+
+
+            totalSpeedStore = playerMovement.GetTotalSpeed();
+
+
+            yield return new WaitForSeconds(grabDuration);
+
+            // Undoes wall grab, letting it be performed again after a delay
+            UndoWallGrab(2);
+            totalSpeedStore = 0;
+        }
     }
 
+    public float attackDistance = 3f;
+    public float attackDelay = 0.4f;
+    public float attackSpeed = 1f;
+    public int attackDamage = 1;
+    public LayerMask attackLayer;
+
+    bool attacking = false;
+    bool readyToAttack = true;
+    int attackCount;
 
 
-    IEnumerator WallGrab()
+    public void Attack()
     {
-        // Set up wall grab, preventing duplicate coroutines and such
-        wallGrabIsReady = false;
-        playerMovement.freezePlayer = true;
         
-        
-        totalSpeedStore = playerMovement.GetTotalSpeed();
+            if (!readyToAttack || attacking) return;
 
+            readyToAttack = false;
+            attacking = true;
 
-        yield return new WaitForSeconds(grabDuration);
+            print("started attack");
 
-        // Undoes wall grab, letting it be performed again after a delay
-        UndoWallGrab(2);
-        totalSpeedStore = 0;
+            Invoke(nameof(ResetAttack), attackSpeed);
+            Invoke(nameof(AttackRaycast), attackDelay);
+
+            if (attackCount == 0)
+            {
+                attackCount++;
+            }
+            else
+            {
+                attackCount = 0;
+            }
+        } 
+    
+
+    void ResetAttack()
+    {
+        attacking = false;
+        readyToAttack = true;
+    }
+
+    void AttackRaycast()
+    {
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
+        {
+            HitTarget(hit.point);
+            print("raycast fired and hit");
+            if (hit.transform.TryGetComponent<Actor>(out Actor T))
+            { T.TakeDamage(attackDamage); }
+        }
+    }
+
+    void HitTarget(Vector3 pos)
+    {
+       
     }
 
     void WallGrabRecharge()
@@ -125,3 +187,5 @@ public class AdvancedPlayerMovement : MonoBehaviour
         wallGrabCoroutine = null;
     }
 }
+
+
