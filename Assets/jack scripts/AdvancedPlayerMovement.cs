@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using JSAM;
 
 public class AdvancedPlayerMovement : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public bool isSliding = false;
     public LayerMask groundLayer;
     public Camera cam;
-
+    public Animator weaponAnim;
 
     // Wall grab and launch variables
 
@@ -41,7 +42,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
 
         // Sliding stuff
         if (Input.GetKeyDown(KeyCode.LeftControl) && !isSliding && !isHoldingWall)
@@ -131,6 +132,11 @@ public class AdvancedPlayerMovement : MonoBehaviour
             readyToAttack = false;
             attacking = true;
 
+            
+            AudioManager.PlaySound(AudioLibrayrSounds.WooshSound);
+
+        weaponAnim.SetTrigger("attack");
+
             print("started attack");
 
             Invoke(nameof(ResetAttack), attackSpeed);
@@ -151,6 +157,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     {
         attacking = false;
         readyToAttack = true;
+        weaponAnim.ResetTrigger("attack");
     }
 
     void AttackRaycast()
@@ -160,7 +167,11 @@ public class AdvancedPlayerMovement : MonoBehaviour
             HitTarget(hit.point);
             print("raycast fired and hit");
             if (hit.transform.TryGetComponent<Actor>(out Actor T))
-            { T.TakeDamage(attackDamage); }
+            { 
+                T.TakeDamage(attackDamage);
+                AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
+                AudioManager.PlaySound(AudioLibrayrSounds.ImpactSOund);
+            }
         }
     }
 
