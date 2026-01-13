@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using JSAM;
+using EZCameraShake;
 
 public class AdvancedPlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Launch power
         float totalSpeedStore;
         public float powerBonus;
+
+    // Launch sound effect
+    public AudioSource LaunchSound;
 
 
 
@@ -107,6 +111,9 @@ public class AdvancedPlayerMovement : MonoBehaviour
             // Launch
             playerMovement.velocity = Camera.main.transform.forward * (totalSpeedStore + powerBonus);
             totalSpeedStore = 0;
+            CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
+            LaunchSound.Play();
+
 
         }
 
