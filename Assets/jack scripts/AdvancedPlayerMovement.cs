@@ -98,10 +98,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftControl) && isHoldingWall) // Wall release
         {
-            playerMovement.freezePlayer = false;
-            isHoldingWall = false;
-            StopCoroutine(wallGrabCoroutine);
-            wallGrabCoroutine = null;
+            UndoWallGrab(1);
         }
         if (Input.GetKeyDown(KeyCode.Space) && isHoldingWall) // Launches player out of wall grab
         {
@@ -109,9 +106,12 @@ public class AdvancedPlayerMovement : MonoBehaviour
             UndoWallGrab(0.5f);
 
             // Launch
-            playerMovement.velocity = Camera.main.transform.forward * (totalSpeedStore + powerBonus);
+            playerMovement.velocity = (Camera.main.transform.forward + new Vector3(0, 0.35f, 0)).normalized * (totalSpeedStore + powerBonus);
             totalSpeedStore = 0;
-            CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
+            if (totalSpeedStore > 50)
+            {
+                CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
+            }
             LaunchSound.Play();
 
 
@@ -125,22 +125,37 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
 
 
-        IEnumerator WallGrab()
-        {
-            // Set up wall grab, preventing duplicate coroutines and such
-            wallGrabIsReady = false;
-            playerMovement.freezePlayer = true;
+        
+    }
+
+    IEnumerator WallGrab()
+    {
+        // Set up wall grab, preventing duplicate coroutines and such
+        wallGrabIsReady = false;
+        playerMovement.freezePlayer = true;
 
 
-            totalSpeedStore = playerMovement.GetTotalSpeed();
+        totalSpeedStore = playerMovement.GetTotalSpeed();
 
 
-            yield return new WaitForSeconds(grabDuration);
+        yield return new WaitForSeconds(grabDuration);
 
-            // Undoes wall grab, letting it be performed again after a delay
-            UndoWallGrab(2);
-            totalSpeedStore = 0;
-        }
+        // Undoes wall grab, letting it be performed again after a delay
+        UndoWallGrab(2);
+        totalSpeedStore = 0;
+    }
+
+    /// <summary>
+    /// Sets all variables to what they need to be at to be able to wall grab
+    /// </summary>
+    /// <param name="rechargeTime">Wall grab cooldown</param>
+    void UndoWallGrab(float rechargeTime)
+    {
+        playerMovement.freezePlayer = false;
+        isHoldingWall = false;
+        Invoke(nameof(WallGrabRecharge), rechargeTime);
+        StopCoroutine(wallGrabCoroutine);
+        wallGrabCoroutine = null;
     }
 
     public float attackDistance = 3f;
@@ -183,7 +198,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
             {
                 attackCount = 0;
             }
-        } 
+    } 
     
 
     void ResetAttack()
@@ -219,18 +234,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Maybe add a visual indicator for it being recharged
     }
 
-    /// <summary>
-    /// Sets all variables to what they need to be at to be able to wall grab
-    /// </summary>
-    /// <param name="rechargeTime">Wall grab cooldown</param>
-    void UndoWallGrab(float rechargeTime)
-    {
-        playerMovement.freezePlayer = false;
-        isHoldingWall = false;
-        Invoke(nameof(WallGrabRecharge), rechargeTime);
-        StopCoroutine(wallGrabCoroutine);
-        wallGrabCoroutine = null;
-    }
+    
 
     void DashRecharge()
     {
