@@ -13,11 +13,13 @@ public class EnemyBullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         StartCoroutine(BulletTimer());
+        //Starst the bullets timer
 
     }
     void Start()
     {
-        rb.velocity = transform.forward * BulletSpeed;
+        rb.velocity = transform.forward * BulletSpeed; 
+        
     }
 
     private void OnCollisionEnter(Collision collision)

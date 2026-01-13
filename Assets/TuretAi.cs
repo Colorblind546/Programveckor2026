@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class TuretAi : MonoBehaviour
 {
  
-
+    
 
 
     public Transform firePoint;   // where the bullet comes from
@@ -76,6 +76,7 @@ public class TuretAi : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, Ground))
         {
             walkPointSet = true;
+            
         }
 
     }
