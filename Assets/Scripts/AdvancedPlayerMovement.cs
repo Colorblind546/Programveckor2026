@@ -35,11 +35,18 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Launch power
         float totalSpeedStore;
         public float powerBonus;
+    
+   
+
 
     // Launch sound effect
     public AudioSource LaunchSound;
     // Launch particle effect 
-    public GameObject CartoonParticle;
+    public GameObject CartoonParticle1;
+    public GameObject CartoonParticle2;
+    public GameObject CartoonParticle3;
+    public GameObject CartoonParticle4;
+    public GameObject CartoonParticle5;
 
 
 
@@ -47,6 +54,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+
     }
 
     // Update is called once per frame
@@ -112,7 +120,31 @@ public class AdvancedPlayerMovement : MonoBehaviour
             totalSpeedStore = 0;
             CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
             LaunchSound.Play();
-            Instantiate(CartoonParticle, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            
+            
+            // Random number generator 
+            int randomnumber = Random.Range(1, 6);
+
+            if (randomnumber == 1)
+            {
+                Instantiate(CartoonParticle1, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 2)
+            {
+                Instantiate(CartoonParticle2, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 3)
+            {
+                Instantiate(CartoonParticle3, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 4)
+            {
+                Instantiate(CartoonParticle4, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 5)
+            {
+                Instantiate(CartoonParticle5, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
 
 
 
