@@ -200,10 +200,11 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
     void HitTarget(Vector3 pos)
     {
-       
+       /*
         // Undoes wall grab, letting it be performed again after a delay
         UndoWallGrab(1f);
         totalSpeedStore = 0;
+       */
     }
 
     void WallGrabRecharge()
