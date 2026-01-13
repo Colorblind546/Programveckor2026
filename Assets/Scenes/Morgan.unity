@@ -1295,6 +1295,12 @@ PrefabInstance:
       propertyPath: LaunchSound
       value: 
       objectReference: {fileID: 2075403084}
+    - target: {fileID: 2561574158262832864, guid: 7d67ba5a3d572ee40a00a10a6a575866,
+        type: 3}
+      propertyPath: CartoonParticle
+      value: 
+      objectReference: {fileID: 3784945155588612436, guid: b33d991b542eaae4bb87332955c73ce0,
+        type: 3}
     - target: {fileID: 3084027020336589935, guid: 7d67ba5a3d572ee40a00a10a6a575866,
         type: 3}
       propertyPath: m_Name
