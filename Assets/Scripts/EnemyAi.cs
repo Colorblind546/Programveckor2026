@@ -12,7 +12,7 @@ public class EnemyAi : MonoBehaviour
     public LayerMask Ground, Player;
     public float health;
 
-    
+
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -27,7 +27,7 @@ public class EnemyAi : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-   
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -52,14 +52,14 @@ public class EnemyAi : MonoBehaviour
     private void Patroling()
     {
         if (!walkPointSet) SearchWalkPoint();
-        if(walkPointSet)
+        if (walkPointSet)
         {
             agent.SetDestination(walkPoint);
         }
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         //Walkpoint reached
-        if(distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 1f)
         {
             walkPointSet = false;
         }
@@ -70,7 +70,7 @@ public class EnemyAi : MonoBehaviour
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        if(Physics.Raycast(walkPoint, -transform.up, 2f, Ground))
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, Ground))
         {
             walkPointSet = true;
         }
@@ -79,7 +79,7 @@ public class EnemyAi : MonoBehaviour
 
 
     // Update is called once per frame
-   private void ChasePlayer()
+    private void ChasePlayer()
     {
         agent.SetDestination(player.position);
         Debug.Log("Is chasing player");
@@ -91,26 +91,26 @@ public class EnemyAi : MonoBehaviour
 
         transform.LookAt(player);
 
-        if(!alreadyAttacked)
+        if (!alreadyAttacked)
         {
             //Attack code here
-            Instantiate(projectile,firePoint.position,firePoint.rotation);
+            Instantiate(projectile, firePoint.position, firePoint.rotation);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
-       
-    
+
+
     }
 
     private void ResetAttack()
     {
         alreadyAttacked = false;
     }
-    
+
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if(health <=0)
+        if (health <= 0)
         {
             Invoke(nameof(DestroyEnemy), .5f);
         }
@@ -121,5 +121,5 @@ public class EnemyAi : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    
+
 }
