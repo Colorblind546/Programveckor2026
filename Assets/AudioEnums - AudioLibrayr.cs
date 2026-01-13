@@ -4,5 +4,6 @@
         WooshSound
     }
     public enum AudioLibrayrMusic {
-        Music
+        Music,
+        gameovermusic
     }
