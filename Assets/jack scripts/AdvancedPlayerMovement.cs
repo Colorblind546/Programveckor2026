@@ -41,6 +41,8 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
     // Launch sound effect
     public AudioSource LaunchSound;
+    // Launch particle effect 
+    public GameObject CartoonParticle;
 
 
 
@@ -113,6 +115,8 @@ public class AdvancedPlayerMovement : MonoBehaviour
                 CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
             }
             LaunchSound.Play();
+            Instantiate(CartoonParticle, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+
 
 
         }
