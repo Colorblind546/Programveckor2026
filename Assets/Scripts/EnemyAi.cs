@@ -106,7 +106,7 @@ public class EnemyAi : MonoBehaviour
     {
         alreadyAttacked = false;
     }
-    /*
+    
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -121,5 +121,5 @@ public class EnemyAi : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    */
+    
 }
