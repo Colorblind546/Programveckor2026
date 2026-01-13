@@ -91,6 +91,7 @@ public class EnemyAi : MonoBehaviour
 
         transform.LookAt(player);
 
+
         if(!alreadyAttacked)
         {
             //Attack code here
