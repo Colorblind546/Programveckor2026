@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using JSAM;
+using EZCameraShake;
 
 public class AdvancedPlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,18 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Launch power
         float totalSpeedStore;
         public float powerBonus;
+    
+   
+
+
+    // Launch sound effect
+    public AudioSource LaunchSound;
+    // Launch particle effect 
+    public GameObject CartoonParticle1;
+    public GameObject CartoonParticle2;
+    public GameObject CartoonParticle3;
+    public GameObject CartoonParticle4;
+    public GameObject CartoonParticle5;
 
 
 
@@ -44,6 +57,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+
     }
 
     // Update is called once per frame
@@ -94,10 +108,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftControl) && isHoldingWall) // Wall release
         {
-            playerMovement.freezePlayer = false;
-            isHoldingWall = false;
-            StopCoroutine(wallGrabCoroutine);
-            wallGrabCoroutine = null;
+            UndoWallGrab(1);
         }
         if (Input.GetKeyDown(KeyCode.Space) && isHoldingWall) // Launches player out of wall grab
         {
@@ -105,8 +116,40 @@ public class AdvancedPlayerMovement : MonoBehaviour
             UndoWallGrab(0.5f);
 
             // Launch
-            playerMovement.velocity = Camera.main.transform.forward * (totalSpeedStore + powerBonus);
+            playerMovement.velocity = (Camera.main.transform.forward + new Vector3(0, 0.35f, 0)).normalized * (totalSpeedStore + powerBonus);
             totalSpeedStore = 0;
+            if (totalSpeedStore > 50)
+            {
+                CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
+            }
+            LaunchSound.Play();
+            
+            
+            // Random number generator 
+            int randomnumber = Random.Range(1, 6);
+
+            if (randomnumber == 1)
+            {
+                Instantiate(CartoonParticle1, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 2)
+            {
+                Instantiate(CartoonParticle2, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 3)
+            {
+                Instantiate(CartoonParticle3, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 4)
+            {
+                Instantiate(CartoonParticle4, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+            else if (randomnumber == 5)
+            {
+                Instantiate(CartoonParticle5, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+            }
+
+
 
         }
 
@@ -118,22 +161,37 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
 
 
-        IEnumerator WallGrab()
-        {
-            // Set up wall grab, preventing duplicate coroutines and such
-            wallGrabIsReady = false;
-            playerMovement.freezePlayer = true;
+        
+    }
+
+    IEnumerator WallGrab()
+    {
+        // Set up wall grab, preventing duplicate coroutines and such
+        wallGrabIsReady = false;
+        playerMovement.freezePlayer = true;
 
 
-            totalSpeedStore = playerMovement.GetTotalSpeed();
+        totalSpeedStore = playerMovement.GetTotalSpeed();
 
 
-            yield return new WaitForSeconds(grabDuration);
+        yield return new WaitForSeconds(grabDuration);
 
-            // Undoes wall grab, letting it be performed again after a delay
-            UndoWallGrab(2);
-            totalSpeedStore = 0;
-        }
+        // Undoes wall grab, letting it be performed again after a delay
+        UndoWallGrab(2);
+        totalSpeedStore = 0;
+    }
+
+    /// <summary>
+    /// Sets all variables to what they need to be at to be able to wall grab
+    /// </summary>
+    /// <param name="rechargeTime">Wall grab cooldown</param>
+    void UndoWallGrab(float rechargeTime)
+    {
+        playerMovement.freezePlayer = false;
+        isHoldingWall = false;
+        Invoke(nameof(WallGrabRecharge), rechargeTime);
+        StopCoroutine(wallGrabCoroutine);
+        wallGrabCoroutine = null;
     }
 
     public float attackDistance = 3f;
@@ -158,6 +216,9 @@ public class AdvancedPlayerMovement : MonoBehaviour
             
             AudioManager.PlaySound(AudioLibrayrSounds.WooshSound);
 
+        // Undoes wall grab, letting it be performed again after a delay
+        UndoWallGrab(1f);
+        totalSpeedStore = 0;
         weaponAnim.SetTrigger("attack");
 
             print("started attack");
@@ -173,7 +234,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
             {
                 attackCount = 0;
             }
-        } 
+    } 
     
 
     void ResetAttack()
@@ -200,11 +261,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
     void HitTarget(Vector3 pos)
     {
-       /*
-        // Undoes wall grab, letting it be performed again after a delay
-        UndoWallGrab(1f);
-        totalSpeedStore = 0;
-       */
+       
     }
 
     void WallGrabRecharge()
@@ -213,18 +270,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Maybe add a visual indicator for it being recharged
     }
 
-    /// <summary>
-    /// Sets all variables to what they need to be at to be able to wall grab
-    /// </summary>
-    /// <param name="rechargeTime">Wall grab cooldown</param>
-    void UndoWallGrab(float rechargeTime)
-    {
-        playerMovement.freezePlayer = false;
-        isHoldingWall = false;
-        Invoke(nameof(WallGrabRecharge), rechargeTime);
-        StopCoroutine(wallGrabCoroutine);
-        wallGrabCoroutine = null;
-    }
+    
 
     void DashRecharge()
     {
