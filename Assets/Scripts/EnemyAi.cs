@@ -30,13 +30,13 @@ public class EnemyAi : MonoBehaviour
    
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player").transform;  
         agent = GetComponent<NavMeshAgent>();
     }
     private void Update()
     {
         //Chech for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player);
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player); 
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
