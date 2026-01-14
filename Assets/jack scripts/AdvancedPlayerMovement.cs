@@ -110,44 +110,44 @@ public class AdvancedPlayerMovement : MonoBehaviour
         {
             UndoWallGrab(1);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isHoldingWall) // Launches player out of wall grab
+        if (Input.GetKeyUp(KeyCode.Space) && isHoldingWall) // Launches player out of wall grab
         {
             // Undo wall grab
             UndoWallGrab(0.5f);
 
             // Launch
             playerMovement.velocity = (Camera.main.transform.forward + new Vector3(0, 0.35f, 0)).normalized * (totalSpeedStore + powerBonus);
-            totalSpeedStore = 0;
-            if (totalSpeedStore > 50)
+            if (totalSpeedStore >= 30)
             {
-                CameraShaker.Instance.ShakeOnce(20f, 20f, .1f, 1f);
-            }
-            LaunchSound.Play();
-            
-            
-            // Random number generator 
-            int randomnumber = Random.Range(1, 6);
+                CameraShaker.Instance.ShakeOnce(20f, 20f, 0.1f, 0.5f);
+                LaunchSound.Play();
+                // Random number generator 
+                int randomnumber = Random.Range(1, 6);
 
-            if (randomnumber == 1)
-            {
-                Instantiate(CartoonParticle1, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+                if (randomnumber == 1)
+                {
+                    Instantiate(CartoonParticle1, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+                }
+                else if (randomnumber == 2)
+                {
+                    Instantiate(CartoonParticle2, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+                }
+                else if (randomnumber == 3)
+                {
+                    Instantiate(CartoonParticle3, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+                }
+                else if (randomnumber == 4)
+                {
+                    Instantiate(CartoonParticle4, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+                }
+                else if (randomnumber == 5)
+                {
+                    Instantiate(CartoonParticle5, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
+                }
             }
-            else if (randomnumber == 2)
-            {
-                Instantiate(CartoonParticle2, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
-            }
-            else if (randomnumber == 3)
-            {
-                Instantiate(CartoonParticle3, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
-            }
-            else if (randomnumber == 4)
-            {
-                Instantiate(CartoonParticle4, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
-            }
-            else if (randomnumber == 5)
-            {
-                Instantiate(CartoonParticle5, GameObject.Find("WallGrabCheckcapsule").transform.position, Quaternion.identity);
-            }
+            totalSpeedStore = 0;
+            
+            
 
 
 
