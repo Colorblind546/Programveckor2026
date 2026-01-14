@@ -90,6 +90,15 @@ MonoBehaviour:
   isHoldingWall: 0
   minSpeedToWallGrab: 17.5
   powerBonus: 15
+  LaunchSound: {fileID: 0}
+  CartoonParticle: {fileID: 0}
+  attackDistance: 3
+  attackDelay: 0.4
+  attackSpeed: 1
+  attackDamage: 1
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!23 &7750376672161334453
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -201,7 +210,8 @@ GameObject:
   - component: {fileID: 3446697012918405572}
   - component: {fileID: 4373671553742060515}
   - component: {fileID: 8921644675277902535}
-  - component: {fileID: 1563295406783854532}
+  - component: {fileID: 1041092121453910012}
+  - component: {fileID: 5764329760911530823}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -327,7 +337,23 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &1563295406783854532
+--- !u!114 &1041092121453910012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576129857008652170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab8353b5ebd32545867da143199a814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultPosInfluence: {x: 0.15, y: 0.15, z: 0.15}
+  DefaultRotInfluence: {x: 1, y: 1, z: 1}
+  RestPositionOffset: {x: 0, y: 0, z: 0}
+  RestRotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &5764329760911530823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
