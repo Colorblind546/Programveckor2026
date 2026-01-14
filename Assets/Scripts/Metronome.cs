@@ -49,5 +49,10 @@ public class Metronome : MonoBehaviour
         }
     }
 
+    public bool IsOnBeat()
+    {
+        return onBeat;
+    }
+
 
 }

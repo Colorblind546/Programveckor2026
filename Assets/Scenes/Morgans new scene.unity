@@ -713,6 +713,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2561574158262832864, guid: 7d67ba5a3d572ee40a00a10a6a575866,
+        type: 3}
+      propertyPath: CartoonParticle4
+      value: 
+      objectReference: {fileID: 6111780402021197910, guid: 6c3f332676c9b7146a16b045cf9a680a,
+        type: 3}
+    - target: {fileID: 2561574158262832864, guid: 7d67ba5a3d572ee40a00a10a6a575866,
+        type: 3}
+      propertyPath: CartoonParticle5
+      value: 
+      objectReference: {fileID: 2584144885890085385, guid: 0cce6157f975eee4dbb229fa00f63747,
+        type: 3}
     - target: {fileID: 3084027020336589935, guid: 7d67ba5a3d572ee40a00a10a6a575866,
         type: 3}
       propertyPath: m_Name
