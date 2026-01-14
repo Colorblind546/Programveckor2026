@@ -10,6 +10,7 @@ public class StartScreen : MonoBehaviour
     public GameObject Button2;
     public GameObject Button3;
     public GameObject ControlText;
+    public GameObject ControlText2;
     public GameObject Button4;
 
     // Start is called before the first frame update
@@ -40,6 +41,7 @@ public class StartScreen : MonoBehaviour
         Button3.active = false;
         Title.active = false;
         ControlText.active = true;
+        ControlText2.active = true;
         Button4.active = true;
 
     }
@@ -51,6 +53,7 @@ public class StartScreen : MonoBehaviour
         Button3.active = true;
         Title.active = true;
         ControlText.active = false;
+        ControlText2.active = false;
         Button4.active = false;
     }
 
