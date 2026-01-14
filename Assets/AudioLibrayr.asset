@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2204bf128383ced4f8a374a536984a4c, type: 3}
+  m_Name: AudioLibrayr
+  m_EditorClassIdentifier: 
+  soundCategories:
+  - 
+  musicCategories:
+  - 
+  Sounds:
+  - {fileID: 11400000, guid: 3d1f01bb81359a64f842c6ffc872b7ab, type: 2}
+  - {fileID: 11400000, guid: a1095cb9b605ce346b983889f2404fc6, type: 2}
+  Music:
+  - {fileID: 11400000, guid: b633871bc6a8a3f4dbb17970b45f8a70, type: 2}
+  useCustomNames: 0
+  generatedName: AudioLibrayr
+  musicEnum: 
+  musicEnumGenerated: AudioLibrayrMusic
+  musicNamespace: 
+  musicNamespaceGenerated: 
+  soundEnum: 
+  soundEnumGenerated: AudioLibrayrSounds
+  soundNamespace: 
+  soundNamespaceGenerated: 
+  soundCategoriesToList:
+  - name: 
+    files:
+    - {fileID: 11400000, guid: 3d1f01bb81359a64f842c6ffc872b7ab, type: 2}
+    - {fileID: 11400000, guid: a1095cb9b605ce346b983889f2404fc6, type: 2}
+    foldout: 1
+  musicCategoriesToList:
+  - name: 
+    files:
+    - {fileID: 11400000, guid: b633871bc6a8a3f4dbb17970b45f8a70, type: 2}
+    foldout: 1
