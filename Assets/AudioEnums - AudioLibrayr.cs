@@ -1,7 +1,6 @@
     public enum AudioLibrayrSounds {
         SynthHit,
-        ImpactSOund,
-        WooshSound
+        ImpactSOund
     }
     public enum AudioLibrayrMusic {
         Music
