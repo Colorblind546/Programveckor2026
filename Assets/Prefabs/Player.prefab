@@ -85,13 +85,11 @@ MonoBehaviour:
     m_Bits: 8
   dashCooldown: 2.5
   dashIsReady: 1
-  cam: {fileID: 0}
-  weaponAnim: {fileID: 0}
   grabDuration: 2.5
   wallGrabCheck: {fileID: 9147232372365189355}
   wallGrabSize: {x: 1.3, y: 0.2, z: 1.3}
   isHoldingWall: 0
-  minSpeedToWallGrab: 0
+  minSpeedToWallGrab: 17.5
   powerBonus: 15
   LaunchSound: {fileID: 3747134831499794142}
   CartoonParticle1: {fileID: 6157270102771017079, guid: dbaa043ffb682f24c926735fc6f1ca8b,
@@ -475,6 +473,20 @@ MonoBehaviour:
   DefaultRotInfluence: {x: 1, y: 1, z: 1}
   RestPositionOffset: {x: 0, y: 0, z: 0}
   RestRotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &5764329760911530823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576129857008652170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6364d3d30bdf30e468a2735ab2f3f942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 2
+  playerBody: {fileID: 3084027020336589935}
 --- !u!1 &8615145408023333898
 GameObject:
   m_ObjectHideFlags: 0

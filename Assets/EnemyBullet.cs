@@ -7,10 +7,12 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField]
     float BulletSpeed = 1f;
     Rigidbody rb;
+    
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        StartCoroutine(BulletTimmer());
+        StartCoroutine(BulletTimer());
 
     }
     void Start()
@@ -21,9 +23,14 @@ public class EnemyBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Hit " + collision.gameObject.name);
+        PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
+        if (player != null)
+        {
+            player.PlayerTakeDamage(10);
+        }
         Destroy(gameObject);
     }
-    IEnumerator BulletTimmer()
+    IEnumerator BulletTimer()
     {
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
