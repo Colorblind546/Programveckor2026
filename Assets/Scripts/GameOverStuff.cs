@@ -15,7 +15,7 @@ public class GameOverStuff : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         print("HAHAHAHAHAHAHAH");
     }
 
