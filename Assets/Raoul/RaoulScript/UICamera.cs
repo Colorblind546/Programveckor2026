@@ -7,76 +7,47 @@ public class UICamera : MonoBehaviour
     public Camera mainCamera;
     public RenderTexture renderTexture;
 
-    // Optional: if you want to capture automatically every frame (expensive)
-    public bool captureEveryFrame = false;
-
-    // Optional: you can read this from elsewhere after capture
-    [HideInInspector] public Texture2D lastScreenshot;
-
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        if (!mainCamera) mainCamera = GetComponent<Camera>();
-        if (!mainCamera) mainCamera = Camera.main;
-    }
-
-    void OnEnable()
-    {
-        if (renderTexture != null && mainCamera != null)
+        if (mainCamera == null)
         {
-            // Assign once. Don't null/reassign every frame.
+            mainCamera = Camera.main; // Or GetComponent<Camera>();
+        }
+
+        // Set up a Render Texture (e.g., for Post-Processing or UI)
+        if (renderTexture != null)
+        {
             mainCamera.targetTexture = renderTexture;
         }
     }
 
-    void OnDisable()
-    {
-        if (mainCamera != null && mainCamera.targetTexture == renderTexture)
-            mainCamera.targetTexture = null;
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (renderTexture == null || mainCamera == null) return;
-
-        // Press R to capture once (failsafe)
-        if (Input.GetKeyDown(KeyCode.R))
-            StartCoroutine(CaptureFromRenderTexture());
-
-        // Takes a picture every frame
-        if (captureEveryFrame)
-            StartCoroutine(CaptureFromRenderTexture());
+       if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Reset the Render Texture on key press
+            if (renderTexture != null)
+            {
+                mainCamera.targetTexture = null; // Clear the target texture
+                mainCamera.targetTexture = renderTexture; // Reassign it
+            }
+            TakeScreenshot();
+        }
     }
 
-    IEnumerator CaptureFromRenderTexture()
+
+    void TakeScreenshot()
     {
-        // Wait until the camera has rendered this frame
-        yield return new WaitForEndOfFrame();
-
-        // Make sure camera is rendering into your RT
-        if (mainCamera.targetTexture != renderTexture)
-            mainCamera.targetTexture = renderTexture;
-
-        // Force a render if this camera isn't rendering every frame / is disabled
-        // (Safe even if it already renders)
-        mainCamera.Render();
-
-        // Read from the RT that's actually assigned in the Inspector (600x256, etc.)
-        var prev = RenderTexture.active;
-        RenderTexture.active = renderTexture;
-
-        // Reuse texture if possible
-        if (lastScreenshot == null ||
-            lastScreenshot.width != renderTexture.width ||
-            lastScreenshot.height != renderTexture.height)
-        {
-            lastScreenshot = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
-        }
-
-        lastScreenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-        lastScreenshot.Apply(false);
-
-        RenderTexture.active = prev;
-
-        
+         RenderTexture tempRT = new RenderTexture(renderTexture.width, renderTexture.height, 24); 
+        mainCamera.targetTexture = tempRT; 
+        Texture2D screenshot = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+        RenderTexture.active = tempRT;
+        screenshot.ReadPixels(new Rect(0, 0, tempRT.width, tempRT.height), 0, 0);
+        screenshot.Apply();
+        RenderTexture.active = null;
+        mainCamera.targetTexture = null;
+        Destroy(tempRT);
     }
 }
