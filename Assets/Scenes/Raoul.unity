@@ -368,6 +368,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 321911917}
   renderTexture: {fileID: 8400000, guid: d0bcf6aea216aa144b3ae90626a94ed3, type: 2}
+--- !u!1 &655094139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6121427091577292366, guid: ab18c3d53900b7d42bfe70228edced92,
+    type: 3}
+  m_PrefabInstance: {fileID: 6666012787231535669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &908303019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,6 +1090,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4884068816750916784, guid: ab18c3d53900b7d42bfe70228edced92,
+        type: 3}
+      propertyPath: targetToDestroy
+      value: 
+      objectReference: {fileID: 655094139}
     - target: {fileID: 6121427091577292366, guid: ab18c3d53900b7d42bfe70228edced92,
         type: 3}
       propertyPath: m_Name

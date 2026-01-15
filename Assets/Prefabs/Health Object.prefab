@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2148195214381233767}
   - component: {fileID: 2011747171676954931}
   - component: {fileID: 4287330723213566357}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Area Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 4884068816750916784}
   - component: {fileID: 7411580443616550819}
   - component: {fileID: 8745290461086528771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Health Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bcfef005f31852459854d4798658115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObject1: {fileID: 6121427091577292366}
+  targetToDestroy: {fileID: 6121427091577292366}
 --- !u!54 &7411580443616550819
 Rigidbody:
   m_ObjectHideFlags: 0
