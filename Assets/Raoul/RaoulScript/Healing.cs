@@ -44,5 +44,7 @@ public class Healing : MonoBehaviour
             // Destroy the assigned target if set, otherwise destroy this pickup.
             Destroy(targetToDestroy != null ? targetToDestroy : gameObject);
         }
+
+
     }
 }
