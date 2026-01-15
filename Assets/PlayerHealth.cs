@@ -17,6 +17,16 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
+
+    public void PlayerHeal(int heal)
+    {
+        playerhealth += heal;
+        if (playerhealth > 100)
+        {
+            playerhealth = 100;
+        }
+    }
+
     private void DestroyPlayer()
     {
         SceneManager.LoadScene(1);

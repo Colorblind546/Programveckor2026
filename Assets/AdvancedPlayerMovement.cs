@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using JSAM;
+using EZCameraShake;
 
 public class AdvancedPlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,14 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Launch power
         float totalSpeedStore;
         public float powerBonus;
+
+    public AudioSource LaunchSound;
+    public GameObject CartoonParticle1;
+    public GameObject CartoonParticle2;
+    public GameObject CartoonParticle3;
+    public GameObject CartoonParticle4;
+    public GameObject CartoonParticle5;
+        
 
 
 
