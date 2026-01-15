@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using JSAM;
 using EZCameraShake;
+using UnityEngine.Rendering;
 
 public class AdvancedPlayerMovement : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class AdvancedPlayerMovement : MonoBehaviour
     PlayerMovement playerMovement;
     public bool isSliding = false;
     public LayerMask groundLayer;
+    public GameObject metronomeObj;
+    Metronome metronome;
+    
 
     // Dash variables
+    public GameObject dashVolume;
+    public float postInTime;
+    public float postOutTime;
+
 
         // Dash cooldown variables
         public float dashCooldown;
@@ -57,6 +65,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        metronome = metronomeObj.GetComponent<Metronome>();
 
     }
 
@@ -95,8 +104,17 @@ public class AdvancedPlayerMovement : MonoBehaviour
             {
                 playerMovement.velocity = Camera.main.transform.forward * (playerMovement.GetTotalSpeed() / 1.5f);
             }
+
+            StartCoroutine(DashPostProcessing());
             dashIsReady = false;
-            Invoke(nameof(DashRecharge), dashCooldown);
+            if (metronome.IsOnBeat())
+            {
+                Invoke(nameof(DashRecharge), dashCooldown / 4);
+            }
+            else
+            {
+                Invoke(nameof(DashRecharge), dashCooldown);
+            }
         }
 
 
@@ -108,15 +126,20 @@ public class AdvancedPlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftControl) && isHoldingWall) // Wall release
         {
-            UndoWallGrab(1);
+            UndoWallGrab(0.2f);
         }
         if (Input.GetKeyUp(KeyCode.Space) && isHoldingWall) // Launches player out of wall grab
         {
             // Undo wall grab
-            UndoWallGrab(0.5f);
+            UndoWallGrab(0.2f);
 
             // Launch
             playerMovement.velocity = (Camera.main.transform.forward + new Vector3(0, 0.35f, 0)).normalized * (totalSpeedStore + powerBonus);
+
+            if (totalSpeedStore < 30)
+            {
+                CameraShaker.Instance.ShakeOnce(20f, 20f, 0.1f, 0.1f);
+            }
             if (totalSpeedStore >= 30)
             {
                 CameraShaker.Instance.ShakeOnce(20f, 20f, 0.1f, 0.5f);
@@ -170,6 +193,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         wallGrabIsReady = false;
         playerMovement.freezePlayer = true;
 
+        CameraShaker.Instance.ShakeOnce(20f, 20f, 0.05f, 0.05f);
 
         totalSpeedStore = playerMovement.GetTotalSpeed();
 
@@ -177,8 +201,41 @@ public class AdvancedPlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(grabDuration);
 
         // Undoes wall grab, letting it be performed again after a delay
-        UndoWallGrab(2);
+        UndoWallGrab(0.2f);
         totalSpeedStore = 0;
+    }
+
+    IEnumerator DashPostProcessing()
+    {
+        float intensity = 0;
+
+        Volume volume = dashVolume.GetComponent<Volume>();
+
+        while (intensity < 1)
+        {
+            intensity += Time.deltaTime / postInTime;
+            Debug.Log(intensity);
+            volume.weight = intensity;
+            yield return new WaitForEndOfFrame();
+            if (intensity >= 1)
+            {
+                break;
+            }
+        }
+
+        while (intensity > 0)
+        {
+            intensity -= Time.deltaTime / postOutTime;
+            Debug.Log(intensity);
+            volume.weight = intensity;
+            yield return new WaitForEndOfFrame();
+            if (intensity <= 0)
+            {
+                break;
+            }
+        }
+
+        StopCoroutine(DashPostProcessing());
     }
 
     /// <summary>
