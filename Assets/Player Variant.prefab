@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057822448132649297}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: 0, z: 0.516}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.053014085, y: 3.6382709, z: -12.418954}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8159090060005179468}
+  m_Father: {fileID: 5902220790388560124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6618727165691324569
 SpriteRenderer:
@@ -128,7 +128,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 2398254289222303705}
+      objectReference: {fileID: 3111372339308082754}
     - target: {fileID: 2561574158262832864, guid: 7d67ba5a3d572ee40a00a10a6a575866,
         type: 3}
       propertyPath: weaponAnim
@@ -243,7 +243,7 @@ PrefabInstance:
     - {fileID: 1041092121453910012, guid: 7d67ba5a3d572ee40a00a10a6a575866, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 9198468186470069841, guid: 7d67ba5a3d572ee40a00a10a6a575866,
+    - targetCorrespondingSourceObject: {fileID: 6878555410660927201, guid: 7d67ba5a3d572ee40a00a10a6a575866,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6960131876163207002}
@@ -253,12 +253,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1471061328071519378}
   m_SourcePrefab: {fileID: 100100000, guid: 7d67ba5a3d572ee40a00a10a6a575866, type: 3}
---- !u!20 &2398254289222303705 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 3446697012918405572, guid: 7d67ba5a3d572ee40a00a10a6a575866,
-    type: 3}
-  m_PrefabInstance: {fileID: 1053120183599642141}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2617089488066599538 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3084027020336589935, guid: 7d67ba5a3d572ee40a00a10a6a575866,
@@ -278,9 +272,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerhealth: 50
---- !u!4 &8159090060005179468 stripped
+--- !u!20 &3111372339308082754 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2715881210586792031, guid: 7d67ba5a3d572ee40a00a10a6a575866,
+    type: 3}
+  m_PrefabInstance: {fileID: 1053120183599642141}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5902220790388560124 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 9198468186470069841, guid: 7d67ba5a3d572ee40a00a10a6a575866,
+  m_CorrespondingSourceObject: {fileID: 6878555410660927201, guid: 7d67ba5a3d572ee40a00a10a6a575866,
     type: 3}
   m_PrefabInstance: {fileID: 1053120183599642141}
   m_PrefabAsset: {fileID: 0}
