@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1748595167588863482}
   - component: {fileID: 250816390517761185}
   - component: {fileID: 2217589798013931155}
-  - component: {fileID: 5991803760531182127}
   - component: {fileID: 1987765138613838379}
+  - component: {fileID: 5740944767741665155}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -163,22 +163,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5991803760531182127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2902132711045726989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76be7dda326a56d4991cfc2149825357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 3739066677928903672}
-  MoveSpeed: 1.3
-  maxSpeed: 2
-  walking: {fileID: 1987765138613838379}
 --- !u!82 &1987765138613838379
 AudioSource:
   m_ObjectHideFlags: 0
@@ -275,6 +259,45 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5740944767741665155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902132711045726989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d63fb512c3160a418f36a0e9ce31e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSliding: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  dashCooldown: 0
+  dashIsReady: 1
+  cam: {fileID: 1884971641349856130}
+  weaponAnim: {fileID: 0}
+  grabDuration: 0
+  wallGrabCheck: {fileID: 0}
+  wallGrabSize: {x: 0, y: 0, z: 0}
+  isHoldingWall: 0
+  minSpeedToWallGrab: 0
+  powerBonus: 0
+  LaunchSound: {fileID: 0}
+  CartoonParticle1: {fileID: 0}
+  CartoonParticle2: {fileID: 0}
+  CartoonParticle3: {fileID: 0}
+  CartoonParticle4: {fileID: 0}
+  CartoonParticle5: {fileID: 0}
+  attackDistance: 3
+  attackDelay: 0.4
+  attackSpeed: 1
+  attackDamage: 1
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &4408244678188723815
 GameObject:
   m_ObjectHideFlags: 0
