@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
 
     public bool loaded;
     public bool damage;
-    public LayerMask enemyLayer;
     
 
     // Start is called before the first frame update

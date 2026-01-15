@@ -24,7 +24,7 @@ public class RaoulMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
- 
+    public AudioSource walking; 
 
     // Start is called before the first frame update
     void Start()
@@ -56,8 +56,16 @@ public class RaoulMovement : MonoBehaviour
 
        
 
-       
-       
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            walking.enabled = true;
+        }
+        else
+        {
+            
+                walking.enabled = false;
+            
+        }
         
 
         MyInput();
