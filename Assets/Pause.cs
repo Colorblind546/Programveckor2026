@@ -3,24 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pause : MonoBehaviour
+
 {
-    public GameObject Tutorialmenu;
-    public static bool ispuased;
+    public GameObject pauseMenu;
+    public bool isPaused;
 
     void Start()
     {
-        Tutorialmenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        isPaused = false;
     }
-    public void pause()
+
+    void Update()
     {
-        Tutorialmenu.SetActive(true);
-        Time.timeScale = 0f;
-        Debug.Log("Game is paused");
+        // Only pause/unpause if tutorial is not active
+        if (Tutorial.isTutorial)
+            return;
+
+        // Escape toggles pause
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
     }
-    public void StartTime()
+
+    void TogglePause()
     {
-        Tutorialmenu.SetActive(false);
-        Time.timeScale = 1f;
-        Debug.Log("Game is no longer paused");
+        isPaused = !isPaused;
+        pauseMenu.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0f : 1f;
     }
 }
+
+
+

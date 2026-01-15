@@ -5,42 +5,45 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    public GameObject Tutorialmenu;
-    public static bool ispuased;
+    public GameObject tutorialMenu;
+    public static bool isTutorial;
     public static bool TurnofTutorial;
-    
+    public bool hasBeenShown = false;
+
+
     void Start()
     {
-        TurnofTutorial = false;
-        Tutorialmenu.SetActive(false);
-        ispuased = false;
+        tutorialMenu.SetActive(false);
+        isTutorial = false;
     }
-    public void pause()
+
+    // Call this to show the tutorial (e.g., trigger)
+    public void ShowTutorial()
     {
-        if (TurnofTutorial == false)
+        if (hasBeenShown) return; // already shown, do nothing
+
+        tutorialMenu.SetActive(true);
+        if (tutorialMenu != null) tutorialMenu.SetActive(true);
+
+        isTutorial = true;
+        Time.timeScale = 0f;
+
+        hasBeenShown = true; // mark as shown
+    }
+
+    void Update()
+    {
+        // Only allow Escape to close tutorial if it's active
+        if (isTutorial && Input.GetKeyDown(KeyCode.Escape))
         {
-            Tutorialmenu.SetActive(true);
-            Time.timeScale = 0f;
-            Debug.Log("Game is paused");
-            ispuased = true;
+            CloseTutorial();
         }
     }
-    public void StartTime()
+
+    void CloseTutorial()
     {
-        if (TurnofTutorial==false)
-        {
-            Tutorialmenu.SetActive(false);
-            Time.timeScale = 1f;
-            Debug.Log("Game is no longer paused");
-            ispuased = false;
-        }
-    }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && (ispuased==true))
-        {
-            TurnofTutorial = true;
-            StartTime();
-        }
+        tutorialMenu.SetActive(false);
+        isTutorial = false;
+        Time.timeScale = 1f; // resume game
     }
 }
