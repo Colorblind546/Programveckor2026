@@ -35,7 +35,7 @@ public class Healing : MonoBehaviour
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
         if (playerHealth == null)
             playerHealth = other.GetComponentInParent<PlayerHealth>();
-
+        print(playerHealth);
         if (playerHealth != null)
         {
             playerHealth.PlayerHeal(40);
