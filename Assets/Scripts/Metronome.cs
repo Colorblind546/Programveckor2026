@@ -22,8 +22,7 @@ public class Metronome : MonoBehaviour
         volume = volumeObj.GetComponent<Volume>();
 
         StartCoroutine(RhythmKeeper());
-
-
+        
     }
 
     // Update is called once per frame
