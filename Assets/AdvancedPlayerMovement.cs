@@ -15,6 +15,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public Animator weaponAnim;
     public GameObject metronomeObj;
     Metronome metronome;
+    CapsuleCollider collider;
 
 
     // Dash variables
@@ -61,6 +62,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         metronome = metronomeObj.GetComponent<Metronome>();
+        collider = gameObject.GetComponent<CapsuleCollider>();
 
     }
 
