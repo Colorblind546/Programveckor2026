@@ -861,10 +861,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3159477281183226283, guid: ab18c3d53900b7d42bfe70228edced92,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6121427091577292366, guid: ab18c3d53900b7d42bfe70228edced92,
         type: 3}
       propertyPath: m_Name
       value: Health Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121427091577292366, guid: ab18c3d53900b7d42bfe70228edced92,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

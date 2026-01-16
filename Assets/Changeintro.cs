@@ -7,7 +7,7 @@ public class Changeintro : MonoBehaviour
 {
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)|| (Input.GetMouseButtonDown(0)))
         {
             NextScene();
         }
