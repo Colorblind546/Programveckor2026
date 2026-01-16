@@ -89,7 +89,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         }
 
         // Dashing
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashIsReady)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashIsReady && !(playerMovement.isGrounded && !isSliding))
         {
             if (playerMovement.GetTotalSpeed() <= 60)
             {
