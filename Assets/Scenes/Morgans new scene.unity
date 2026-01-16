@@ -516,6 +516,11 @@ PrefabInstance:
       propertyPath: weaponAnim
       value: 
       objectReference: {fileID: 338234193}
+    - target: {fileID: 3247628707087759613, guid: 674b6a78c5676514586db0c8f3986093,
+        type: 3}
+      propertyPath: attackDelay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5902220790388560124, guid: 674b6a78c5676514586db0c8f3986093,
         type: 3}
       propertyPath: m_LocalPosition.y
