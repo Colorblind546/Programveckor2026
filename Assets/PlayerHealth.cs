@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void DestroyPlayer()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(5);
     }
 
 }
