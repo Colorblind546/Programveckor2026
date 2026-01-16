@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
+public class ButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler 
 {
     public Vector3 pressedScale = new Vector3(0.95f, 0.95f, 0.95f);
     public float speed = 12f;
@@ -11,16 +12,28 @@ public class ButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     Vector3 startScale;
     bool pressed;
 
-    public GameObject gameObjectt;
-    public GameObject gameObjectt2;
-    public GameObject gameObjectt3;
-    public GameObject gameObjectt4;
-    public GameObject gameObjectt5;
-    public GameObject gameObjectt6;
+ 
+
+    // New fields for hover sprite swapping
+    public Image targetImage;
+    public Sprite normalSprite;
+    public Sprite hoverSprite;
 
     void Awake()
     {
         startScale = transform.localScale;
+
+        // Try to find an Image component on this GameObject if none provided
+        if (targetImage == null)
+        {
+            targetImage = GetComponent<Image>();
+        }
+
+        // If no normalSprite provided, cache current sprite from the Image (if available)
+        if (targetImage != null && normalSprite == null)
+        {
+            normalSprite = targetImage.sprite;
+        }
     }
 
     void Update()
@@ -41,13 +54,23 @@ public class ButtonEffect : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         pressed = false;
     }
 
-    public void Change()
+    // Swap to hover sprite when pointer enters
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        gameObject.SetActive(true);
-        gameObjectt2.SetActive(true);
-        gameObjectt3.SetActive(true);
-        gameObjectt4.SetActive(false);
-        gameObjectt5.SetActive(false);
-        gameObjectt6.SetActive(false);
+        if (targetImage != null && hoverSprite != null)
+        {
+            targetImage.sprite = hoverSprite;
+        }
     }
+
+    // Restore normal sprite when pointer exits
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (targetImage != null && normalSprite != null)
+        {
+            targetImage.sprite = normalSprite;
+        }
+    }
+
+  
 }
