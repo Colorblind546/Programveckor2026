@@ -3994,8 +3994,8 @@ MonoBehaviour:
   ControlText: {fileID: 678830237}
   ControlText2: {fileID: 207721159}
   Button4: {fileID: 1708392493}
-  Button5: {fileID: 0}
-  Button6: {fileID: 0}
+  Button5: {fileID: 678830237}
+  Button6: {fileID: 207721159}
 --- !u!114 &2117112866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4036,7 +4036,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2117112867}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
