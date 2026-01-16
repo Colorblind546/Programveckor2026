@@ -7,6 +7,8 @@ public class Actor : MonoBehaviour
     int currentHealth;
     public int maxHealth;
 
+
+
     void Awake()
     {
         currentHealth = maxHealth;

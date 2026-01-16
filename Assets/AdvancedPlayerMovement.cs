@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using JSAM;
 using EZCameraShake;
@@ -16,7 +15,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public Animator weaponAnim;
     public GameObject metronomeObj;
     Metronome metronome;
-    
+
 
     // Dash variables
     public GameObject dashVolume;
@@ -24,28 +23,28 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public float postOutTime;
 
 
-        // Dash cooldown variables
-        public float dashCooldown;
-        public bool dashIsReady = true;
+    // Dash cooldown variables
+    public float dashCooldown;
+    public bool dashIsReady = true;
 
     // Wall grab and launch variables
 
     // Modifiable parameters
     public float grabDuration;
 
-        // Wall in range check
-        public GameObject wallGrabCheck;
-        public Vector3 wallGrabSize;
-        
-        // To see if you can grab a wall
-        public bool isHoldingWall;
-        Coroutine wallGrabCoroutine;
-        public float minSpeedToWallGrab;
-        bool wallGrabIsReady = true;
+    // Wall in range check
+    public GameObject wallGrabCheck;
+    public Vector3 wallGrabSize;
 
-        // Launch power
-        float totalSpeedStore;
-        public float powerBonus;
+    // To see if you can grab a wall
+    public bool isHoldingWall;
+    Coroutine wallGrabCoroutine;
+    public float minSpeedToWallGrab;
+    bool wallGrabIsReady = true;
+
+    // Launch power
+    float totalSpeedStore;
+    public float powerBonus;
 
     public AudioSource LaunchSound;
     public GameObject CartoonParticle1;
@@ -53,7 +52,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public GameObject CartoonParticle3;
     public GameObject CartoonParticle4;
     public GameObject CartoonParticle5;
-        
+
 
 
 
@@ -170,6 +169,8 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
 
 
+
+
         }
 
         //Attack Activation
@@ -178,7 +179,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
             Attack();
         }
 
-
+    }
 
         IEnumerator WallGrab()
         {
@@ -243,7 +244,6 @@ public class AdvancedPlayerMovement : MonoBehaviour
             StopCoroutine(wallGrabCoroutine);
             wallGrabCoroutine = null;
         }
-    }
 
     public float attackDistance = 3f;
     public float attackDelay = 0.4f;
@@ -258,32 +258,32 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
     public void Attack()
     {
-        
-            if (!readyToAttack || attacking) return;
 
-            readyToAttack = false;
-            attacking = true;
+        if (!readyToAttack || attacking) return;
 
-            
-            AudioManager.PlaySound(AudioLibrayrSounds.WooshSound);
+        readyToAttack = false;
+        attacking = true;
+
+
+        AudioManager.PlaySound(AudioLibrayrSounds.WooshSound);
 
         weaponAnim.SetTrigger("attack");
 
-            print("started attack");
+        print("started attack");
 
-            Invoke(nameof(ResetAttack), attackSpeed);
-            Invoke(nameof(AttackRaycast), attackDelay);
+        Invoke(nameof(ResetAttack), attackSpeed);
+        Invoke(nameof(AttackRaycast), attackDelay);
 
-            if (attackCount == 0)
-            {
-                attackCount++;
-            }
-            else
-            {
-                attackCount = 0;
-            }
-        } 
-    
+        if (attackCount == 0)
+        {
+            attackCount++;
+        }
+        else
+        {
+            attackCount = 0;
+        }
+    }
+
 
     void ResetAttack()
     {
@@ -322,18 +322,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         // Maybe add a visual indicator for it being recharged
     }
 
-    /// <summary>
-    /// Sets all variables to what they need to be at to be able to wall grab
-    /// </summary>
-    /// <param name="rechargeTime">Wall grab cooldown</param>
-    void UndoWallGrab(float rechargeTime)
-    {
-        playerMovement.freezePlayer = false;
-        isHoldingWall = false;
-        Invoke(nameof(WallGrabRecharge), rechargeTime);
-        StopCoroutine(wallGrabCoroutine);
-        wallGrabCoroutine = null;
-    }
+
 
     void DashRecharge()
     {
