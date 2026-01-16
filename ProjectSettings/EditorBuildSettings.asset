@@ -6,17 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
+    path: Assets/Scenes/Morgans new scene.unity
+    guid: abd02920b5f061447b16f2702be3b636
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/Scenes/Raoul.unity
     guid: 20196e205c2853e4aba6df7fedb24c0f
   - enabled: 1
-    path: Assets/Scenes/Morgans new scene.unity
-    guid: abd02920b5f061447b16f2702be3b636
-  - enabled: 1
-    path: Assets/Scenes/SOMETHINGG AME.unity
-    guid: 9ac722b48cdff1e44a10648725158621
+    path: Assets/Scenes/Start Screen.unity
+    guid: 72607758902202b409623f37a4016816
   - enabled: 1
     path: Assets/beforintro -1.unity
     guid: 09632081e6c0c23488eb3e48cd2c8d9a
@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BegingIntro2.unity
     guid: 66dbfcc85280bcb4099595c255355cca
+  - enabled: 1
+    path: Assets/Scenes/Lvl1.unity
+    guid: c6559a9bdce3c794cb884d5fbe7c4506
+  - enabled: 1
+    path: Assets/Scenes/SOMETHINGG AME.unity
+    guid: 9ac722b48cdff1e44a10648725158621
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a9a1b1bd6503b4c46b4c9c907fc28683,
       type: 2}
