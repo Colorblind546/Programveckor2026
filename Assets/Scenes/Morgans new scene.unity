@@ -283,6 +283,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 605041706}
   m_SourcePrefab: {fileID: 100100000, guid: 5f8fd581ef7e47b4d98da892aa9dc8b0, type: 3}
+--- !u!95 &338234193 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2486930577869696005, guid: 674b6a78c5676514586db0c8f3986093,
+    type: 3}
+  m_PrefabInstance: {fileID: 564418419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &367064756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,13 +511,19 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3247628707087759613, guid: 674b6a78c5676514586db0c8f3986093,
+        type: 3}
+      propertyPath: weaponAnim
+      value: 
+      objectReference: {fileID: 338234193}
     - target: {fileID: 5902220790388560124, guid: 674b6a78c5676514586db0c8f3986093,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.596
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1057822448132649297, guid: 674b6a78c5676514586db0c8f3986093, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 674b6a78c5676514586db0c8f3986093, type: 3}
@@ -661,6 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beatDuration: 0.3
   bpm: 160
+  volumeObj: {fileID: 0}
 --- !u!4 &783049416
 Transform:
   m_ObjectHideFlags: 0

@@ -111,7 +111,7 @@ MonoBehaviour:
   CartoonParticle5: {fileID: 8063331690356840624, guid: b41270eb23a4ab54e969511b33362501,
     type: 3}
   attackDistance: 3
-  attackDelay: 0.4
+  attackDelay: 0
   attackSpeed: 1
   attackDamage: 1
   attackLayer:
