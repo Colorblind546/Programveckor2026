@@ -31,34 +31,34 @@ public class StartScreen : MonoBehaviour
     public void Begin()
     {
         SceneManager.LoadScene(2);
-        Button1.active = false;
-        Button2.active = false;
+        Button1.SetActive(false);
+        Button2.SetActive(false);
 
     }
 
     public void Controlls()
     {
         Button1.SetActive(false);
-        Button2.active = false;
-        Button3.active = false;
-        Title.active = false;
-        ControlText.active = true;
-        ControlText2.active = true;
-        Button4.active = true;
-        Button5.active = true;
-        Button6.active = true;
+        Button2.SetActive(false);
+        Button3.SetActive(false);
+        Title.SetActive(false);
+        ControlText.SetActive(true);
+        ControlText2.SetActive(true);
+        Button4.SetActive(true);
+        Button5.SetActive(true);
+        Button6.SetActive(true);
 
     }
 
     public void Back()
     {
-        Button1.active = true;
-        Button2.active = true;
-        Button3.active = true;
-        Title.active = true;
-        ControlText.active = false;
-        ControlText2.active = false;
-        Button4.active = false;
+        Button1.SetActive(true);
+        Button2.SetActive(true);
+        Button3.SetActive(true);
+        Title.SetActive(true);
+        ControlText.SetActive(false);
+        ControlText2.SetActive(false)                               ;
+        Button4.SetActive(false);
     }
 
     public void Quit()
