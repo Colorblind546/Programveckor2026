@@ -723,6 +723,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 964293203}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Tutorial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546138849211324924, guid: 6fbd27b2dffe994418929175a02c3033,
+        type: 3}
+      propertyPath: functionEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4199899612344091133, guid: 6fbd27b2dffe994418929175a02c3033,
         type: 3}
       propertyPath: m_Name
