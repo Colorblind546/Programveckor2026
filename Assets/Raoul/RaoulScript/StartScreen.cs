@@ -30,7 +30,7 @@ public class StartScreen : MonoBehaviour
 
     public void Begin()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
         Button1.SetActive(false);
         Button2.SetActive(false);
 
