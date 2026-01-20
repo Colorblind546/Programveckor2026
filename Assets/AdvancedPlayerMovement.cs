@@ -274,7 +274,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         print("started attack");
 
         Invoke(nameof(ResetAttack), attackSpeed);
-        Invoke(nameof(AttackRaycast), attackDelay);
+        StartCoroutine(nameof(AttackRaycast), attackDelay);
 
         if (attackCount == 0)
         {
@@ -294,7 +294,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
         weaponAnim.ResetTrigger("attack");
     }
 
-    void AttackRaycast()
+    IEnumerator AttackRaycast()
     {
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
         {
@@ -302,9 +302,13 @@ public class AdvancedPlayerMovement : MonoBehaviour
             print("raycast fired and hit");
             if (hit.transform.TryGetComponent<Actor>(out Actor T))
             { 
+                
                 T.TakeDamage(attackDamage);
                 AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
                 AudioManager.PlaySound(AudioLibrayrSounds.ImpactSOund);
+                Time.timeScale = 0.10f;
+                yield return new WaitForSecondsRealtime(0.15f);
+                Time.timeScale = 1;
             }
         }
     }
