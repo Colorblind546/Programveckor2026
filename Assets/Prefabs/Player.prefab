@@ -270,7 +270,7 @@ MonoBehaviour:
   wallGrabSize: {x: 1.3, y: 0.2, z: 1.3}
   isHoldingWall: 0
   minSpeedToWallGrab: 0
-  powerBonus: 10
+  powerBonus: 12.5
   LaunchSound: {fileID: 3747134831499794142}
   CartoonParticle1: {fileID: 6157270102771017079, guid: dbaa043ffb682f24c926735fc6f1ca8b,
     type: 3}
@@ -689,8 +689,8 @@ Transform:
   m_GameObject: {fileID: 8760056484889026638}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.026, y: -0.04, z: 0.94}
-  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 1}
+  m_LocalPosition: {x: -0.0399, y: -0.04, z: 0.94}
+  m_LocalScale: {x: 0.10686999, y: 0.099999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6887471333224539674}

@@ -306,6 +306,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
                 {
                     T.TakeDamage(attackDamage * 2);
                     AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
+                    AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
                     CameraShaker.Instance.ShakeOnce(20f, 20f, 0.05f, 0.25f);
                 }
                 else
@@ -314,9 +315,16 @@ public class AdvancedPlayerMovement : MonoBehaviour
                 }
                 AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
                 AudioManager.PlaySound(AudioLibrayrSounds.ImpactSOund);
-                Time.timeScale = 0.10f;
-                yield return new WaitForSecondsRealtime(0.15f);
-                Time.timeScale = 1;
+                Time.timeScale = 0.2f;
+                if (metronome.IsOnBeat())
+                {
+                    yield return new WaitForSecondsRealtime(0.3f);
+                }
+                else
+                {
+                    yield return new WaitForSecondsRealtime(0.15f);
+                }
+                    Time.timeScale = 1;
             }
         }
     }
