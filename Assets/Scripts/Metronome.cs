@@ -57,7 +57,7 @@ public class Metronome : MonoBehaviour
     {
         onBeat = true;
 
-        yield return new WaitForSeconds(beatDuration / 2);
+        yield return new WaitForSeconds(beatDuration / 1);
 
         while (true)
         {

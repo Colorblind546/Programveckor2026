@@ -302,8 +302,16 @@ public class AdvancedPlayerMovement : MonoBehaviour
             print("raycast fired and hit");
             if (hit.transform.TryGetComponent<Actor>(out Actor T))
             { 
-                
-                T.TakeDamage(attackDamage);
+                if (metronome.IsOnBeat())
+                {
+                    T.TakeDamage(attackDamage * 2);
+                    AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
+                    CameraShaker.Instance.ShakeOnce(20f, 20f, 0.05f, 0.25f);
+                }
+                else
+                {
+                    T.TakeDamage(attackDamage);
+                }
                 AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
                 AudioManager.PlaySound(AudioLibrayrSounds.ImpactSOund);
                 Time.timeScale = 0.10f;
@@ -315,11 +323,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
     void HitTarget(Vector3 pos)
     {
-       /*
-        // Undoes wall grab, letting it be performed again after a delay
-        UndoWallGrab(1f);
-        totalSpeedStore = 0;
-       */
+
     }
 
     void WallGrabRecharge()
