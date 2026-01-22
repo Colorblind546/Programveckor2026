@@ -16,6 +16,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     public GameObject metronomeObj;
     Metronome metronome;
     CapsuleCollider collider;
+    public ParticleSystem blood;
 
 
     // Dash variables
@@ -304,18 +305,22 @@ public class AdvancedPlayerMovement : MonoBehaviour
             { 
                 if (metronome.IsOnBeat())
                 {
+                    AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
+                    AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
+                    Time.timeScale = 0.05f;
+                    yield return new WaitForSecondsRealtime(0.7f);
                     T.TakeDamage(attackDamage * 2);
-                    AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
-                    AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
+                    Time.timeScale = 1f;
                     CameraShaker.Instance.ShakeOnce(20f, 20f, 0.05f, 0.25f);
                 }
                 else
                 {
                     T.TakeDamage(attackDamage);
+                    Time.timeScale = 0.1f;
                 }
                 AudioManager.PlaySound(AudioLibrayrSounds.SynthHit);
                 AudioManager.PlaySound(AudioLibrayrSounds.ImpactSOund);
-                Time.timeScale = 0.2f;
+                
                 if (metronome.IsOnBeat())
                 {
                     yield return new WaitForSecondsRealtime(0.3f);

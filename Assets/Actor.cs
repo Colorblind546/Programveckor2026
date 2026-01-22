@@ -6,8 +6,7 @@ public class Actor : MonoBehaviour
 {
     int currentHealth;
     public int maxHealth;
-
-
+    public ParticleSystem blood;
 
     void Awake()
     {
@@ -26,6 +25,7 @@ public class Actor : MonoBehaviour
     {
         // Death function
         // TEMPORARY: Destroy Object
+        Instantiate(blood, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }
