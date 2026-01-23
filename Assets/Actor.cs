@@ -16,8 +16,9 @@ public class Actor : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         { Death(); }
     }
 
@@ -25,7 +26,10 @@ public class Actor : MonoBehaviour
     {
         // Death function
         // TEMPORARY: Destroy Object
-        Instantiate(blood, transform.position, transform.rotation);
+        ParticleSystem ps = Instantiate(blood, transform.position, Quaternion.identity);
+        ps.Play();
+        Destroy(ps.gameObject, ps.main.duration);
+        
         Destroy(gameObject);
     }
 }
